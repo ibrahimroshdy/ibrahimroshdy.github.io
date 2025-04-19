@@ -6,7 +6,9 @@ This is the source code for my personal website hosted at [ibrahimroshdy.github.
 
 - Modern, responsive design
 - Interactive particle background
-- Terminal-style introduction
+- Terminal-style introduction with interactive command line
+- Interactive commands to navigate content (try: help, articles, projects, about, social)
+- Clickable command results for articles and projects
 - Showcase of articles and projects
 - Smooth animations and transitions
 
@@ -34,8 +36,20 @@ cd ibrahimroshdy.github.io
 
 - `index.html` - Main HTML structure
 - `styles.css` - All styling and animations
-- `script.js` - JavaScript for interactivity and particles
+- `script.js` - JavaScript for interactivity, terminal commands, and particles
 - `README.md` - Project documentation
+
+## Interactive Terminal Commands
+
+The website features an interactive terminal that supports the following commands:
+
+- `help` - Display available commands
+- `articles` - Display clickable list of all articles
+- `projects` - Display clickable list of GitHub projects
+- `about` - Show brief information about me
+- `social` - Display social media links
+- `clear` - Clear the terminal screen
+- `open [section]` - Navigate to a specific section (e.g., `open articles`)
 
 ## License
 

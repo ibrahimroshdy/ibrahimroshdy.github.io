@@ -7,6 +7,7 @@
     --card-background: rgba(17, 34, 64, 0.8);
     --terminal-bg: #1d2433;
     --terminal-text: #a2aabc;
+    --cursor-color: var(--primary-color);
 }
 
 * {
@@ -159,6 +160,97 @@ h1 {
     50% {
         opacity: 0;
     }
+}
+
+/* Interactive Terminal Styles */
+.terminal-input-line {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    position: relative;
+}
+
+.terminal-prompt-static {
+    color: var(--primary-color);
+    margin-right: 0;
+    white-space: nowrap;
+}
+
+#terminal-input {
+    background: transparent;
+    border: none;
+    color: var(--text-color);
+    font-family: 'Monaco', 'Courier New', monospace;
+    font-size: 0.95rem;
+    flex-grow: 1;
+    outline: none;
+    caret-color: transparent; /* Hide default caret */
+    position: relative;
+    margin-left: 8px; /* Add space for cursor */
+    padding-left: 8px; /* Add padding for cursor */
+}
+
+.terminal-input-line::after {
+    content: '|';
+    color: var(--cursor-color);
+    position: absolute;
+    left: calc(var(--cursor-position, 0px) + var(--prompt-width, 215px));
+    animation: blink 1s infinite;
+    font-family: 'Monaco', 'Courier New', monospace;
+    font-size: 0.95rem;
+    pointer-events: none;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+#terminal-input::placeholder {
+    color: var(--accent-color);
+    opacity: 0.6;
+    font-style: italic;
+    font-size: 0.85rem;
+}
+
+.terminal-help {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: var(--accent-color);
+}
+
+.command-example {
+    color: var(--primary-color);
+    cursor: pointer;
+    text-decoration: underline;
+    text-decoration-style: dotted;
+}
+
+.command-example:hover {
+    opacity: 0.8;
+}
+
+.clickable-output {
+    cursor: pointer;
+    color: var(--text-color);
+    margin-left: 20px;
+}
+
+.clickable-output:hover {
+    color: var(--primary-color);
+    text-decoration: underline;
+}
+
+.social-link {
+    display: inline-block;
+    margin-left: 20px;
+    color: var(--text-color);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.social-link:hover {
+    color: var(--primary-color);
 }
 
 .navigation {
