@@ -73,11 +73,71 @@ particlesJS('particles-js', {
             },
             push: {
                 particles_nb: 2
+            },
+            bubble: {
+                distance: 400,
+                size: 4,
+                duration: 0.3,
+                opacity: 1,
+                speed: 3
+            },
+            repulse: {
+                distance: 200,
+                duration: 0.4
             }
         }
     },
     retina_detect: true
 });
+
+// Add particle burst on click
+document.addEventListener('click', function(e) {
+    // Only create burst if not clicking on interactive elements
+    if (!e.target.closest('a') && 
+        !e.target.closest('input') && 
+        !e.target.closest('.terminal-content') &&
+        !e.target.closest('.command-example')) {
+        createParticleBurst(e.clientX, e.clientY);
+    }
+});
+
+function createParticleBurst(x, y) {
+    const burstElement = document.createElement('div');
+    burstElement.classList.add('particle-burst');
+    document.body.appendChild(burstElement);
+    
+    burstElement.style.left = `${x}px`;
+    burstElement.style.top = `${y}px`;
+    
+    // Create 12 particles
+    for (let i = 0; i < 12; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('burst-particle');
+        
+        // Random color from the site's palette
+        const colors = ['#64ffda', '#ccd6f6', '#8892b0'];
+        particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        
+        // Set random direction
+        const angle = Math.random() * Math.PI * 2;
+        const speed = 1 + Math.random() * 3;
+        const size = Math.random() * 6 + 2;
+        
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        
+        // Animation with CSS variables
+        particle.style.setProperty('--angle', angle);
+        particle.style.setProperty('--speed', speed);
+        
+        burstElement.appendChild(particle);
+    }
+    
+    // Remove after animation completes
+    setTimeout(() => {
+        burstElement.remove();
+    }, 1000);
+}
 
 // Terminal initialization with just about info
 document.addEventListener('DOMContentLoaded', function () {
@@ -111,6 +171,15 @@ document.addEventListener('DOMContentLoaded', function () {
     // Add input line
     terminalContent.appendChild(terminalInputLine);
     setupTerminalInput();
+    
+    // Initialize section animations
+    initSectionAnimations();
+    
+    // Initialize typing animations for headings
+    initTypingAnimations();
+    
+    // Initialize card hover effects
+    initCardHoverEffects();
 });
 
 // Interactive terminal functionality
@@ -124,6 +193,10 @@ function setupTerminalInput() {
     // Set initial prompt width for cursor positioning
     const promptWidth = promptElement.getBoundingClientRect().width;
     document.documentElement.style.setProperty('--prompt-width', `${promptWidth}px`);
+    
+    // Command history
+    const commandHistory = [];
+    let historyIndex = -1;
 
     // Animated placeholder text
     const placeholderMessages = [
@@ -164,7 +237,28 @@ function setupTerminalInput() {
     terminalInput.addEventListener('input', updateCursorPosition);
     terminalInput.addEventListener('click', updateCursorPosition);
     terminalInput.addEventListener('keydown', function(e) {
-        setTimeout(updateCursorPosition, 10); // Update after key press is fully processed
+        // Handle up and down arrows for command history
+        if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            if (historyIndex < commandHistory.length - 1) {
+                historyIndex++;
+                terminalInput.value = commandHistory[commandHistory.length - 1 - historyIndex];
+                setTimeout(updateCursorPosition, 10);
+            }
+        } else if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            if (historyIndex > 0) {
+                historyIndex--;
+                terminalInput.value = commandHistory[commandHistory.length - 1 - historyIndex];
+                setTimeout(updateCursorPosition, 10);
+            } else if (historyIndex === 0) {
+                historyIndex = -1;
+                terminalInput.value = '';
+                setTimeout(updateCursorPosition, 10);
+            }
+        } else {
+            setTimeout(updateCursorPosition, 10); // Update after key press is fully processed
+        }
     });
     
     // Update cursor position on focus/blur
@@ -241,6 +335,15 @@ function setupTerminalInput() {
 
     // Process command
     function processCommand(cmd) {
+        // Add command to history
+        if (cmd.trim() !== '') {
+            commandHistory.unshift(cmd);
+            if (commandHistory.length > 20) {
+                commandHistory.pop();
+            }
+            historyIndex = -1;
+        }
+        
         // Add command to terminal
         const commandElement = document.createElement('p');
         commandElement.className = 'command';
@@ -260,6 +363,9 @@ function setupTerminalInput() {
             addOutput('- about: Learn more about me');
             addOutput('- social: Show my social links');
             addOutput('- clear: Clear the terminal');
+            addOutput('- history: Show command history');
+            addOutput('- theme [light/dark]: Change site theme');
+            addOutput('- matrix: Show a matrix animation');
             addOutput('- help: Show this help message');
         } 
         else if (command === 'articles') {
@@ -320,7 +426,36 @@ function setupTerminalInput() {
                 }
                 terminalContent.removeChild(terminalContent.firstChild);
             }
-        } 
+        }
+        else if (command === 'history') {
+            if (commandHistory.length === 0) {
+                addOutput('No command history yet.');
+            } else {
+                addOutput('Command history:');
+                commandHistory.forEach((cmd, index) => {
+                    addOutput(`${index + 1}. ${cmd}`);
+                });
+            }
+        }
+        else if (command.startsWith('theme ')) {
+            const theme = command.substring(6).trim();
+            if (theme === 'light') {
+                document.documentElement.setAttribute('data-theme', 'light');
+                addOutput('Theme switched to light mode.');
+            } else if (theme === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                addOutput('Theme switched to dark mode.');
+            } else {
+                addOutput(`Unknown theme: ${theme}`);
+                addOutput('Available themes: light, dark');
+            }
+        }
+        else if (command === 'matrix') {
+            addOutput('Initializing Matrix animation...');
+            setTimeout(() => {
+                showMatrixAnimation();
+            }, 500);
+        }
         else if (command.startsWith('open ')) {
             const target = command.substring(5).trim();
             if (target === 'articles') {
@@ -358,6 +493,68 @@ function setupTerminalInput() {
         terminalContent.scrollTop = terminalContent.scrollHeight;
     }
     
+    // Matrix animation
+    function showMatrixAnimation() {
+        const overlay = document.createElement('div');
+        overlay.classList.add('matrix-overlay');
+        document.body.appendChild(overlay);
+        
+        const canvas = document.createElement('canvas');
+        canvas.classList.add('matrix-canvas');
+        overlay.appendChild(canvas);
+        
+        const closeBtn = document.createElement('button');
+        closeBtn.textContent = 'X';
+        closeBtn.classList.add('matrix-close');
+        overlay.appendChild(closeBtn);
+        
+        closeBtn.addEventListener('click', () => {
+            overlay.remove();
+        });
+        
+        // Matrix animation code
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        
+        const columns = Math.floor(canvas.width / 20);
+        const drops = [];
+        
+        for (let i = 0; i < columns; i++) {
+            drops[i] = Math.random() * -100;
+        }
+        
+        const characters = '01イウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
+        
+        function draw() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            ctx.fillStyle = '#0F0';
+            ctx.font = '15px monospace';
+            
+            for (let i = 0; i < drops.length; i++) {
+                const text = characters.charAt(Math.floor(Math.random() * characters.length));
+                ctx.fillText(text, i * 20, drops[i] * 20);
+                
+                if (drops[i] * 20 > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                
+                drops[i]++;
+            }
+        }
+        
+        const matrixInterval = setInterval(draw, 50);
+        
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) {
+                clearInterval(matrixInterval);
+                overlay.remove();
+            }
+        });
+    }
+    
     // Handle terminal input
     terminalInput.addEventListener('keydown', function(e) {
         if (e.key === 'Enter') {
@@ -372,6 +569,99 @@ function setupTerminalInput() {
     terminalContent.addEventListener('click', function() {
         terminalInput.focus();
     });
+}
+
+// Initialize section animations
+function initSectionAnimations() {
+    const sections = document.querySelectorAll('.section');
+    const options = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.1
+    };
+    
+    const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('section-visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, options);
+    
+    sections.forEach(section => {
+        section.classList.add('section-hidden');
+        observer.observe(section);
+    });
+}
+
+// Initialize typing animations for headings
+function initTypingAnimations() {
+    const titles = document.querySelectorAll('h2');
+    const options = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.5
+    };
+    
+    const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const element = entry.target;
+                const text = element.textContent;
+                element.textContent = '';
+                element.classList.add('typing-animation');
+                
+                let i = 0;
+                const typeInterval = setInterval(() => {
+                    if (i < text.length) {
+                        element.textContent += text.charAt(i);
+                        i++;
+                    } else {
+                        clearInterval(typeInterval);
+                    }
+                }, 70);
+                
+                observer.unobserve(element);
+            }
+        });
+    }, options);
+    
+    titles.forEach(title => {
+        observer.observe(title);
+    });
+}
+
+// Initialize card hover effects
+function initCardHoverEffects() {
+    const cards = document.querySelectorAll('.article-card, .project-card');
+    
+    cards.forEach(card => {
+        card.addEventListener('mousemove', handleCardHover);
+        card.addEventListener('mouseleave', resetCardPosition);
+    });
+    
+    function handleCardHover(e) {
+        const card = e.currentTarget;
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        
+        // Calculate rotation based on mouse position
+        const rotateX = (y - centerY) / 10;
+        const rotateY = (centerX - x) / 10;
+        
+        // Apply transform
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`;
+    }
+    
+    function resetCardPosition(e) {
+        const card = e.currentTarget;
+        card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
+    }
 }
 
 // Smooth scroll for navigation links
