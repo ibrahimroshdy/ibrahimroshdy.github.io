@@ -90,6 +90,17 @@ particlesJS('particles-js', {
     retina_detect: true
 });
 
+// After particles are initialized, check if we need to update colors for light mode
+document.addEventListener('DOMContentLoaded', function() {
+    // Check current theme and update particles if needed
+    setTimeout(() => {
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        if (currentTheme === 'light') {
+            updateParticlesForTheme('light');
+        }
+    }, 100); // Short delay to ensure particles are initialized
+});
+
 // Add particle burst on click
 document.addEventListener('click', function(e) {
     // Only create burst if not clicking on interactive elements
@@ -180,6 +191,9 @@ document.addEventListener('DOMContentLoaded', function () {
     
     // Initialize card hover effects
     initCardHoverEffects();
+    
+    // Initialize theme toggle
+    initThemeToggle();
 });
 
 // Interactive terminal functionality
@@ -223,7 +237,7 @@ function setupTerminalInput() {
         
         // Calculate position based on text content
         document.documentElement.style.setProperty('--cursor-position', `${textWidth}px`);
-    }
+            }
 
     // Get text width for cursor positioning
     function getTextWidth(text) {
@@ -441,14 +455,18 @@ function setupTerminalInput() {
             const theme = command.substring(6).trim();
             if (theme === 'light') {
                 document.documentElement.setAttribute('data-theme', 'light');
+                updateParticlesForTheme('light');
                 addOutput('Theme switched to light mode.');
             } else if (theme === 'dark') {
                 document.documentElement.setAttribute('data-theme', 'dark');
+                updateParticlesForTheme('dark');
                 addOutput('Theme switched to dark mode.');
             } else {
                 addOutput(`Unknown theme: ${theme}`);
                 addOutput('Available themes: light, dark');
             }
+            // Save theme preference
+            localStorage.setItem('theme', theme === 'light' ? 'light' : 'dark');
         }
         else if (command === 'matrix') {
             addOutput('Initializing Matrix animation...');
@@ -542,9 +560,9 @@ function setupTerminalInput() {
                 }
                 
                 drops[i]++;
-            }
         }
-        
+    }
+
         const matrixInterval = setInterval(draw, 50);
         
         overlay.addEventListener('click', (e) => {
@@ -677,3 +695,94 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         }
     });
 }); 
+
+// Initialize theme toggle functionality
+function initThemeToggle() {
+    const themeToggle = document.getElementById('theme-toggle');
+    
+    // Check for saved theme preference or respect OS preference
+    const savedTheme = localStorage.getItem('theme');
+    const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+    
+    // Set initial theme
+    if (savedTheme === 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+        updateParticlesForTheme('light');
+    } else if (savedTheme === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+    } else if (prefersDarkScheme.matches) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+    } else {
+        document.documentElement.setAttribute('data-theme', 'light');
+        updateParticlesForTheme('light');
+    }
+    
+    // Toggle theme when button is clicked
+    themeToggle.addEventListener('click', () => {
+        const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        
+        document.documentElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        
+        // Add animation effect
+        const ripple = document.createElement('span');
+        ripple.classList.add('theme-toggle-ripple');
+        themeToggle.appendChild(ripple);
+        
+        // Remove ripple after animation
+        setTimeout(() => {
+            ripple.remove();
+        }, 1000);
+        
+        // Update particles for the new theme
+        updateParticlesForTheme(newTheme);
+    });
+}
+
+// Update particles colors and opacity based on theme
+function updateParticlesForTheme(theme) {
+    if (window.pJSDom && window.pJSDom[0]) {
+        const particlesJS = window.pJSDom[0].pJS;
+        let particleColor, lineColor, opacity;
+        
+        if (theme === 'dark') {
+            particleColor = '#64ffda';
+            lineColor = '#64ffda';
+            opacity = 0.3;
+        } else {
+            // Darker colors for light mode
+            particleColor = '#057864'; // Darker teal for light mode
+            lineColor = '#057864';
+            opacity = 0.5; // More opaque for light mode
+        }
+        
+        // Update particles color
+        particlesJS.particles.array.forEach(p => {
+            p.color.value = particleColor;
+            p.opacity.value = opacity;
+        });
+        
+        // Update lines color
+        particlesJS.particles.line_linked.color = lineColor;
+        particlesJS.particles.line_linked.opacity = opacity;
+        particlesJS.particles.line_linked.color_rgb_line = hexToRgb(lineColor);
+    }
+}
+
+// Helper function to convert hex to RGB for particles.js
+function hexToRgb(hex) {
+    // Remove '#' if present
+    hex = hex.replace('#', '');
+    
+    // Parse the hex values
+    const r = parseInt(hex.substring(0, 2), 16);
+    const g = parseInt(hex.substring(2, 4), 16);
+    const b = parseInt(hex.substring(4, 6), 16);
+    
+    return {
+        r: r,
+        g: g,
+        b: b
+    };
+} 

@@ -9,6 +9,7 @@
     --terminal-text: #a2aabc;
     --cursor-color: var(--primary-color);
     --transition-time: 0.3s;
+    --box-shadow: 0 10px 30px -15px rgba(2, 12, 27, 0.7);
 }
 
 /* Light theme variables */
@@ -21,6 +22,7 @@
     --card-background: #fff;
     --terminal-bg: #f0f0f0;
     --terminal-text: #222;
+    --box-shadow: 0 10px 30px -15px rgba(0, 0, 0, 0.2);
 }
 
 /* Dark theme is default, so no need to specify [data-theme="dark"] */
@@ -29,7 +31,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    transition: background-color var(--transition-time), color var(--transition-time), border-color var(--transition-time);
+    transition: background-color var(--transition-time), color var(--transition-time), border-color var(--transition-time), box-shadow var(--transition-time);
 }
 
 body {
@@ -38,6 +40,7 @@ body {
     color: var(--text-color);
     line-height: 1.6;
     overflow-x: hidden;
+    transition: background-color 0.5s ease;
 }
 
 .particles-background {
@@ -47,6 +50,7 @@ body {
     width: 100%;
     height: 100%;
     z-index: -1;
+    opacity: 0.7;
 }
 
 .container {
@@ -327,10 +331,14 @@ h2 {
     background: var(--card-background);
     padding: 1.8rem;
     border-radius: 8px;
-    transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.5s cubic-bezier(0.25, 0.8, 0.25, 1), border-color var(--transition-time);
+    transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1), 
+                box-shadow 0.5s cubic-bezier(0.25, 0.8, 0.25, 1), 
+                border-color var(--transition-time),
+                background-color 0.5s ease;
     border: 1px solid rgba(100, 255, 218, 0.1);
     transform-style: preserve-3d;
     perspective: 1000px;
+    box-shadow: var(--box-shadow);
 }
 
 .article-card:hover,
@@ -398,6 +406,13 @@ h2 {
     border-radius: 50%;
     opacity: 0.8;
     animation: burstAnim 1s forwards cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* Make particle burst more visible in light mode */
+[data-theme="light"] .burst-particle {
+    opacity: 0.9;
+    filter: brightness(0.8); /* Slightly darker particles */
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.2); /* Add subtle shadow */
 }
 
 @keyframes burstAnim {
@@ -522,4 +537,126 @@ h2 {
 .social-link:hover,
 .clickable-output:hover {
     text-shadow: 0 0 8px var(--primary-color);
+}
+
+/* Theme Toggle Button */
+.theme-toggle {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 1rem;
+    position: relative;
+    transition: transform 0.3s;
+    overflow: hidden;
+}
+
+.theme-toggle:hover {
+    transform: scale(1.1);
+}
+
+.theme-toggle:active {
+    transform: scale(0.9);
+}
+
+.theme-toggle-icon {
+    position: relative;
+    width: 24px;
+    height: 24px;
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.moon-icon, .sun-icon {
+    position: absolute;
+    transition: opacity 0.3s, transform 0.5s;
+}
+
+.sun-icon {
+    opacity: 0;
+    transform: rotate(90deg) scale(0);
+}
+
+.moon-icon {
+    opacity: 1;
+    transform: rotate(0) scale(1);
+}
+
+[data-theme="light"] .sun-icon {
+    opacity: 1;
+    transform: rotate(0) scale(1);
+}
+
+[data-theme="light"] .moon-icon {
+    opacity: 0;
+    transform: rotate(-90deg) scale(0);
+}
+
+.theme-toggle-ripple {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    opacity: 0.4;
+    animation: ripple 1s ease-out;
+    pointer-events: none;
+}
+
+@keyframes ripple {
+    0% {
+        width: 0;
+        height: 0;
+        opacity: 0.4;
+    }
+    100% {
+        width: 300%;
+        height: 300%;
+        opacity: 0;
+    }
+}
+
+/* Enhance theme transitions */
+body {
+    transition: background-color 0.5s ease;
+}
+
+/* Enhance the light mode appearance */
+[data-theme="light"] .terminal-box {
+    border-color: rgba(10, 128, 101, 0.2);
+    box-shadow: 0 10px 30px -15px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="light"] .terminal-header {
+    background: rgba(230, 230, 230, 0.9);
+    border-bottom: 1px solid rgba(10, 128, 101, 0.1);
+}
+
+[data-theme="light"] .terminal-content .command {
+    color: var(--primary-color);
+}
+
+/* Make particles more visible in light mode */
+[data-theme="light"] .particles-background {
+    opacity: 0.9;
+}
+
+/* Add a filter to make particles darker and more visible in light mode */
+[data-theme="light"] #particles-js canvas {
+    filter: contrast(120%) brightness(0.85);
+}
+
+[data-theme="light"] .clickable-output:hover,
+[data-theme="light"] .social-link:hover {
+    color: var(--primary-color);
 } 
