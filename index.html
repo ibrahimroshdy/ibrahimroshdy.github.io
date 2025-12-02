@@ -3,130 +3,491 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ibrahimroshdy | Personal Website</title>
+    <title>Ibrahim Roshdy | Software Engineer</title>
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
-<div class="particles-background" id="particles-js"></div>
-
-<main class="container">
-    <div class="hero">
-        <div class="lightning-logo">⚡</div>
-        <h1>Ibrahim Roshdy</h1>
-        <p class="subtitle">👋 Hi, there!</p>
-
-        <div class="terminal-box">
-            <div class="terminal-header">
-                <span class="terminal-dot red"></span>
-                <span class="terminal-dot yellow"></span>
-                <span class="terminal-dot green"></span>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <a href="#" class="logo">
+                <i class="fas fa-terminal"></i>
+                <span>ibrahimroshdy.dev</span>
+            </a>
+            <nav class="nav">
+                <a href="#about" class="nav-link">About</a>
+                <a href="#stats" class="nav-link">Stats</a>
+                <a href="#articles" class="nav-link">Articles</a>
+                <a href="#projects" class="nav-link">Projects</a>
+            </nav>
+            <div class="header-actions">
+                <a href="https://github.com/ibrahimroshdy" class="btn btn-ghost" target="_blank">
+                    <i class="fab fa-github"></i>
+                    <span>GitHub</span>
+                </a>
+                <button id="theme-toggle" class="btn btn-icon" aria-label="Toggle theme">
+                    <i class="fas fa-moon theme-icon-dark"></i>
+                    <i class="fas fa-sun theme-icon-light"></i>
+                </button>
             </div>
-            <div class="terminal-content">
-                <p class="command">ibrahimroshdy@workspace:~> whoami</p>
-                <p class="output">🤖 Machine Learning Engineer!</p>
-                <p class="output">💻 Software Developer!</p>
-                <p class="command terminal-prompt">ibrahimroshdy@workspace:~> ps aux | grep ibrahimroshdy</p>
-                <p class="output">ibrahimroshdy 2025 django-pdf-actions Django</p>
-                <p class="output">ibrahimroshdy 2024 multi-arch-actions github-actions</p>
-                <p class="output">ibrahimroshdy 2023 refresher arch</p>
-                <div class="terminal-input-line">
-                    <span class="terminal-prompt-static">ibrahimroshdy@workspace:~></span>
-                    <input type="text" id="terminal-input" autofocus autocomplete="off" spellcheck="false">
-                </div>
-            </div>
-        </div>
-
-        <div class="terminal-help">
-            <p>Try these commands: <span class="command-example">help</span>, <span class="command-example">articles</span>, <span class="command-example">projects</span>, <span class="command-example">about</span>, <span class="command-example">social</span>, <span class="command-example">clear</span></p>
-        </div>
-
-        <nav class="navigation">
-            <a href="#articles" class="nav-link">/articles</a>
-            <a href="https://github.com/ibrahimroshdy" class="nav-link">/github</a>
-            <a href="https://medium.com/@ibrahimroshdy" class="nav-link">/medium</a>
-            <a href="https://linkedin.com/in/ibrahim-roshdy" class="nav-link">/linkedin</a>
-            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
-                <span class="theme-toggle-icon">
-                    <i class="fas fa-moon moon-icon"></i>
-                    <i class="fas fa-sun sun-icon"></i>
-                </span>
+            <button class="mobile-menu-btn" id="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
             </button>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobile-menu">
+        <nav class="mobile-nav">
+            <a href="#about" class="mobile-nav-link">About</a>
+            <a href="#stats" class="mobile-nav-link">Stats</a>
+            <a href="#articles" class="mobile-nav-link">Articles</a>
+            <a href="#projects" class="mobile-nav-link">Projects</a>
         </nav>
     </div>
 
-    <section id="articles" class="section">
-        <h2>Latest Articles</h2>
-        <div class="articles-grid">
-            <article class="article-card">
-                <h3>Django PDF Actions</h3>
-                <p>Exploring PDF manipulation in Django applications with a powerful package...</p>
-                <a href="https://blog.devgenius.io/django-pdf-actions-d4a87960f4ac" class="read-more">Read More →</a>
-            </article>
-            <article class="article-card">
-                <h3>Refresher Project: System Design</h3>
-                <p>A complete guide to system design and architecture principles...</p>
-                <a href="https://blog.devgenius.io/refresher-project-a-glimpse-of-system-design-and-architecture-aaef28510dd4"
-                   class="read-more">Read More →</a>
-            </article>
-            <article class="article-card">
-                <h3>Refresher Project: Infrastructure</h3>
-                <p>Building a simple infrastructure with Django & Celery...</p>
-                <a href="https://blog.devgenius.io/refresher-project-part-2-explaining-how-to-build-a-simple-infrastructure-with-django-celery-ddf7a797c791"
-                   class="read-more">Read More →</a>
-            </article>
-            <article class="article-card">
-                <h3>Multi-arch Docker Images</h3>
-                <p>Building Docker images for ARM64 M1 Macbook support...</p>
-                <a href="https://blog.devgenius.io/how-to-build-your-docker-images-using-multi-arch-to-support-arm64-m1-macbook-6ebc42a47cd7"
-                   class="read-more">Read More →</a>
-            </article>
-            <article class="article-card">
-                <h3>Continuous Integration with GitHub</h3>
-                <p>Implementing efficient CI/CD pipelines using GitHub Actions...</p>
-                <a href="https://blog.devgenius.io/continuous-integration-github-1130217cc2e9" class="read-more">Read
-                    More →</a>
-            </article>
-            <article class="article-card">
-                <h3>NBRefactor: Transform Jupyter Notebooks</h3>
-                <p>Convert Jupyter notebooks to functional Python modules...</p>
-                <a href="https://blog.devgenius.io/nbrefactor-tranform-jupyter-notebooks-to-functional-python-modules-within-seconds-8d4e2af0457e"
-                   class="read-more">Read More →</a>
-            </article>
-        </div>
-    </section>
+    <main class="main">
+        <!-- Hero Section -->
+        <section class="hero" id="about">
+            <div class="hero-content">
+                <div class="badge badge-unavailable">
+                    <i class="fas fa-circle status-dot"></i>
+                    Currently not available
+                </div>
+                <h1 class="hero-title">
+                    Building robust systems with
+                    <span class="gradient-text">Machine Learning</span> &
+                    <span class="gradient-text">Software Engineering</span>
+                </h1>
+                <p class="hero-description">
+                    I'm Ibrahim Roshdy, a Machine Learning Engineer and Software Developer passionate about 
+                    building efficient systems and exploring new technologies. Currently focused on Django, 
+                    Docker, and ML infrastructure.
+                </p>
+                <div class="hero-actions">
+                    <a href="#projects" class="btn btn-primary">
+                        <i class="fas fa-folder-open"></i>
+                        View Projects
+                    </a>
+                    <a href="#articles" class="btn btn-secondary">
+                        <i class="fas fa-newspaper"></i>
+                        Read Articles
+                    </a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="terminal-card">
+                    <div class="terminal-header">
+                        <div class="terminal-dots">
+                            <span class="dot red"></span>
+                            <span class="dot yellow"></span>
+                            <span class="dot green"></span>
+                        </div>
+                        <span class="terminal-title">terminal</span>
+                    </div>
+                    <div class="terminal-body" id="terminal-body">
+                        <div class="terminal-line">
+                            <span class="prompt">~</span>
+                            <span class="command">whoami</span>
+                        </div>
+                        <div class="terminal-output">Machine Learning Engineer</div>
+                        <div class="terminal-output">Software Developer</div>
+                        <div class="terminal-input-wrapper">
+                            <span class="prompt">~</span>
+                            <input type="text" class="terminal-input" id="terminal-input" placeholder="Type a command..." autocomplete="off" spellcheck="false">
+                        </div>
+                    </div>
+                    <div class="terminal-hint">
+                        Try: <code class="clickable-cmd" data-cmd="help">help</code> <code class="clickable-cmd" data-cmd="skills">skills</code> <code class="clickable-cmd" data-cmd="articles">articles</code> <code class="clickable-cmd" data-cmd="projects">projects</code> <code class="clickable-cmd" data-cmd="social">social</code> <code class="clickable-cmd" data-cmd="clear">clear</code>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-    <section id="projects" class="section">
-        <h2>Featured Projects</h2>
-        <div class="projects-grid">
-            <div class="project-card">
-                <h3>Django PDF Actions</h3>
-                <p>A Django package for PDF manipulation and processing, providing powerful admin actions for PDF
-                    operations.</p>
-                <a href="https://github.com/ibrahimroshdy/django-pdf-actions" class="github-link">
-                    <i class="fab fa-github"></i> View on GitHub
-                </a>
+        <!-- Stats Section -->
+        <section class="stats-section" id="stats">
+            <div class="section-header">
+                <h2 class="section-title">Activity Overview</h2>
+                <p class="section-description">A snapshot of my development activity and contributions</p>
             </div>
-            <div class="project-card">
-                <h3>Refresher</h3>
-                <p>A comprehensive infrastructure project demonstrating system design and architecture principles with
-                    Django and Celery.</p>
-                <a href="https://github.com/ibrahimroshdy/refresher" class="github-link">
-                    <i class="fab fa-github"></i> View on GitHub
-                </a>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Articles Published</span>
+                        <i class="fas fa-newspaper stat-icon"></i>
+                    </div>
+                    <div class="stat-value">6+</div>
+                    <div class="stat-change positive">
+                        <i class="fas fa-arrow-up"></i>
+                        Technical writing on Medium
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Open Source Projects</span>
+                        <i class="fas fa-code-branch stat-icon"></i>
+                    </div>
+                    <div class="stat-value">10+</div>
+                    <div class="stat-change positive">
+                        <i class="fas fa-arrow-up"></i>
+                        Active repositories
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Technologies</span>
+                        <i class="fas fa-layer-group stat-icon"></i>
+                    </div>
+                    <div class="stat-value">15+</div>
+                    <div class="stat-change">
+                        <i class="fas fa-check"></i>
+                        Production ready
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Years Experience</span>
+                        <i class="fas fa-calendar stat-icon"></i>
+                    </div>
+                    <div class="stat-value">8+</div>
+                    <div class="stat-change">
+                        <i class="fas fa-briefcase"></i>
+                        Professional work
+                    </div>
+                </div>
             </div>
-            <div class="project-card">
-                <h3>Multi-arch GitHub Actions</h3>
-                <p>Docker multi-architecture build workflows optimized for various platforms including ARM64.</p>
-                <a href="https://github.com/ibrahimroshdy/multi-arch-github-actions" class="github-link">
-                    <i class="fab fa-github"></i> View on GitHub
-                </a>
+
+            <!-- Activity Chart -->
+            <div class="chart-card">
+                <div class="chart-header">
+                    <div>
+                        <h3 class="chart-title">Contribution Activity</h3>
+                        <p class="chart-description">Weekly development activity over the past months</p>
+                    </div>
+                    <div class="chart-legend">
+                        <span class="legend-item">
+                            <span class="legend-dot commits"></span>
+                            Commits
+                        </span>
+                        <span class="legend-item">
+                            <span class="legend-dot prs"></span>
+                            Pull Requests
+                        </span>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="activity-chart"></canvas>
+                </div>
+            </div>
+
+            <!-- Tech Stack -->
+            <div class="tech-card">
+                <div class="tech-header">
+                    <h3 class="tech-title">Tech Stack</h3>
+                    <p class="tech-description">Technologies I work with regularly</p>
+                </div>
+                <div class="tech-grid">
+                    <div class="tech-item">
+                        <i class="fab fa-python"></i>
+                        <span>Python</span>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fab fa-docker"></i>
+                        <span>Docker</span>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fab fa-github"></i>
+                        <span>GitHub Actions</span>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fas fa-database"></i>
+                        <span>PostgreSQL</span>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fab fa-linux"></i>
+                        <span>Linux</span>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fas fa-brain"></i>
+                        <span>ML/AI</span>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fas fa-server"></i>
+                        <span>Django</span>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fas fa-cloud"></i>
+                        <span>AWS</span>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fas fa-bolt"></i>
+                        <span>vLLM</span>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fas fa-link"></i>
+                        <span>LangChain</span>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fas fa-cogs"></i>
+                        <span>MLOps</span>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fas fa-microchip"></i>
+                        <span>Triton</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Articles Section -->
+        <section class="articles-section" id="articles">
+            <div class="section-header">
+                <h2 class="section-title">Latest Articles</h2>
+                <p class="section-description">Technical writing and tutorials on software development</p>
+            </div>
+            <div class="articles-grid">
+                <article class="article-card">
+                    <div class="article-meta">
+                        <span class="article-tag">Django</span>
+                        <span class="article-date">2025</span>
+                    </div>
+                    <h3 class="article-title">Django PDF Actions</h3>
+                    <p class="article-excerpt">
+                        Exploring PDF manipulation in Django applications with a powerful package for admin actions.
+                    </p>
+                    <a href="https://blog.devgenius.io/django-pdf-actions-d4a87960f4ac" class="article-link" target="_blank">
+                        Read article
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </article>
+                <article class="article-card">
+                    <div class="article-meta">
+                        <span class="article-tag">Architecture</span>
+                        <span class="article-date">2024</span>
+                    </div>
+                    <h3 class="article-title">Refresher Project: System Design</h3>
+                    <p class="article-excerpt">
+                        A complete guide to system design and architecture principles for modern applications.
+                    </p>
+                    <a href="https://blog.devgenius.io/refresher-project-a-glimpse-of-system-design-and-architecture-aaef28510dd4" class="article-link" target="_blank">
+                        Read article
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </article>
+                <article class="article-card">
+                    <div class="article-meta">
+                        <span class="article-tag">Infrastructure</span>
+                        <span class="article-date">2024</span>
+                    </div>
+                    <h3 class="article-title">Refresher Project: Infrastructure</h3>
+                    <p class="article-excerpt">
+                        Building a simple infrastructure with Django & Celery for scalable applications.
+                    </p>
+                    <a href="https://blog.devgenius.io/refresher-project-part-2-explaining-how-to-build-a-simple-infrastructure-with-django-celery-ddf7a797c791" class="article-link" target="_blank">
+                        Read article
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </article>
+                <article class="article-card">
+                    <div class="article-meta">
+                        <span class="article-tag">Docker</span>
+                        <span class="article-date">2023</span>
+                    </div>
+                    <h3 class="article-title">Multi-arch Docker Images</h3>
+                    <p class="article-excerpt">
+                        Building Docker images for ARM64 M1 Macbook support with multi-architecture builds.
+                    </p>
+                    <a href="https://blog.devgenius.io/how-to-build-your-docker-images-using-multi-arch-to-support-arm64-m1-macbook-6ebc42a47cd7" class="article-link" target="_blank">
+                        Read article
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </article>
+                <article class="article-card">
+                    <div class="article-meta">
+                        <span class="article-tag">CI/CD</span>
+                        <span class="article-date">2023</span>
+                    </div>
+                    <h3 class="article-title">Continuous Integration with GitHub</h3>
+                    <p class="article-excerpt">
+                        Implementing efficient CI/CD pipelines using GitHub Actions for automated workflows.
+                    </p>
+                    <a href="https://blog.devgenius.io/continuous-integration-github-1130217cc2e9" class="article-link" target="_blank">
+                        Read article
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </article>
+                <article class="article-card">
+                    <div class="article-meta">
+                        <span class="article-tag">Python</span>
+                        <span class="article-date">2023</span>
+                    </div>
+                    <h3 class="article-title">NBRefactor: Transform Jupyter Notebooks</h3>
+                    <p class="article-excerpt">
+                        Convert Jupyter notebooks to functional Python modules within seconds.
+                    </p>
+                    <a href="https://blog.devgenius.io/nbrefactor-tranform-jupyter-notebooks-to-functional-python-modules-within-seconds-8d4e2af0457e" class="article-link" target="_blank">
+                        Read article
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </article>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section class="projects-section" id="projects">
+            <div class="section-header">
+                <h2 class="section-title">Featured Projects</h2>
+                <p class="section-description">Open source projects and tools I've built</p>
+            </div>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-icon">
+                            <i class="fas fa-file-pdf"></i>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/ibrahimroshdy/django-pdf-actions" class="project-link" target="_blank">
+                                <i class="fab fa-github"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <h3 class="project-title">Django PDF Actions</h3>
+                    <p class="project-description">
+                        A Django package for PDF manipulation and processing, providing powerful admin actions for PDF operations.
+                    </p>
+                    <div class="project-tags">
+                        <span class="project-tag">Python</span>
+                        <span class="project-tag">Django</span>
+                        <span class="project-tag">PDF</span>
+                    </div>
+                    <div class="project-stats">
+                        <span class="project-stat">
+                            <i class="fas fa-star"></i>
+                            Open Source
+                        </span>
+                        <span class="project-stat">
+                            <i class="fas fa-code-branch"></i>
+                            Active
+                        </span>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-icon">
+                            <i class="fas fa-sync-alt"></i>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/ibrahimroshdy/refresher" class="project-link" target="_blank">
+                                <i class="fab fa-github"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <h3 class="project-title">Refresher</h3>
+                    <p class="project-description">
+                        A comprehensive infrastructure project demonstrating system design and architecture principles with Django and Celery.
+                    </p>
+                    <div class="project-tags">
+                        <span class="project-tag">Django</span>
+                        <span class="project-tag">Celery</span>
+                        <span class="project-tag">Docker</span>
+                    </div>
+                    <div class="project-stats">
+                        <span class="project-stat">
+                            <i class="fas fa-star"></i>
+                            Open Source
+                        </span>
+                        <span class="project-stat">
+                            <i class="fas fa-code-branch"></i>
+                            Active
+                        </span>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-icon">
+                            <i class="fab fa-docker"></i>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/ibrahimroshdy/multi-arch-github-actions" class="project-link" target="_blank">
+                                <i class="fab fa-github"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <h3 class="project-title">Multi-arch GitHub Actions</h3>
+                    <p class="project-description">
+                        Docker multi-architecture build workflows optimized for various platforms including ARM64.
+                    </p>
+                    <div class="project-tags">
+                        <span class="project-tag">Docker</span>
+                        <span class="project-tag">GitHub Actions</span>
+                        <span class="project-tag">CI/CD</span>
+                    </div>
+                    <div class="project-stats">
+                        <span class="project-stat">
+                            <i class="fas fa-star"></i>
+                            Open Source
+                        </span>
+                        <span class="project-stat">
+                            <i class="fas fa-code-branch"></i>
+                            Active
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section">
+            <div class="cta-card">
+                <div class="cta-content">
+                    <h2 class="cta-title">Let's work together</h2>
+                    <p class="cta-description">
+                        Interested in collaborating or have a project in mind? Feel free to reach out.
+                    </p>
+                </div>
+                <div class="cta-actions">
+                    <a href="https://linkedin.com/in/ibrahim-roshdy" class="btn btn-primary" target="_blank">
+                        <i class="fab fa-linkedin"></i>
+                        LinkedIn
+                    </a>
+                    <a href="https://github.com/ibrahimroshdy" class="btn btn-secondary" target="_blank">
+                        <i class="fab fa-github"></i>
+                        GitHub
+                    </a>
+                    <a href="https://medium.com/@ibrahimroshdy" class="btn btn-secondary" target="_blank">
+                        <i class="fab fa-medium"></i>
+                        Medium
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <p class="footer-text">Built with passion. Open source on GitHub.</p>
+                <div class="footer-links">
+                    <a href="https://github.com/ibrahimroshdy" target="_blank">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://linkedin.com/in/ibrahim-roshdy" target="_blank">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="https://medium.com/@ibrahimroshdy" target="_blank">
+                        <i class="fab fa-medium"></i>
+                    </a>
+                </div>
             </div>
         </div>
-    </section>
-</main>
+    </footer>
 
-<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-<script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
 </body>
-</html> 
+</html>

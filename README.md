@@ -1,73 +1,91 @@
 # Ibrahim Roshdy's Personal Website
 
-This is the source code for my personal website hosted at [ibrahimroshdy.github.io](https://ibrahimroshdy.github.io).
+A modern, minimalist personal portfolio website inspired by [shadcn/ui](https://ui.shadcn.com/) design system.
 
 ## Features
 
-- Modern, responsive design with light and dark theme support
-- Interactive particle background with click effects
-- Terminal-style introduction with interactive command line
-- Interactive commands to navigate content
-- 3D card animations and section reveal effects
-- Animated typing effects for headings
-- Theme toggle with smooth transitions
-- Matrix animation easter egg
-- Command history with arrow key navigation
-- Clickable command results for articles and projects
-- Smooth animations and transitions
+- **Modern Design System**: Clean, minimalist UI inspired by shadcn/ui
+- **Dark/Light Theme**: System-aware theme with manual toggle
+- **Responsive Layout**: Mobile-first design that works on all devices
+- **Interactive Charts**: Activity visualization using Chart.js
+- **Smooth Animations**: Subtle scroll and hover animations
+- **Terminal Component**: Animated terminal showcasing skills
+- **Performance Optimized**: Minimal dependencies, fast loading
 
-## Technologies Used
+## Tech Stack
 
-- HTML5
-- CSS3 (with modern features like CSS Variables, Flexbox, Grid, and Animations)
-- Vanilla JavaScript
-- Intersection Observer API for scroll animations
-- Particles.js for background animation
-- Local Storage for theme preference
+- **HTML5** - Semantic markup
+- **CSS3** - Custom properties, Flexbox, Grid, animations
+- **JavaScript** - Vanilla JS, no frameworks
+- **Chart.js** - Data visualization
+- **Font Awesome** - Icon library
+- **Google Fonts** - Inter & JetBrains Mono
+
+## Design Principles
+
+This website follows the shadcn/ui design philosophy:
+
+- **Accessible**: Semantic HTML and ARIA labels
+- **Customizable**: CSS custom properties for easy theming
+- **Minimal**: No unnecessary dependencies
+- **Consistent**: Unified spacing, colors, and typography
+
+## Sections
+
+1. **Hero** - Introduction with terminal component
+2. **Stats** - Activity metrics and contribution chart
+3. **Tech Stack** - Technologies and tools
+4. **Articles** - Technical writing and tutorials
+5. **Projects** - Open source projects
+6. **CTA** - Contact and social links
 
 ## Local Development
 
-To run this website locally:
-
-1. Clone the repository:
-
 ```bash
+# Clone the repository
 git clone https://github.com/ibrahimroshdy/ibrahimroshdy.github.io.git
+
+# Navigate to directory
 cd ibrahimroshdy.github.io
+
+# Open in browser
+open index.html
+# or use a local server
+python -m http.server 8000
 ```
 
-2. Open `index.html` in your web browser
+## Project Structure
 
-## Structure
+```
+.
+├── index.html      # Main HTML structure
+├── styles.css      # All styles and animations
+├── script.js       # JavaScript functionality
+└── README.md       # Documentation
+```
 
-- `index.html` - Main HTML structure
-- `styles.css` - All styling and animations
-- `script.js` - JavaScript for interactivity, terminal commands, and particles
-- `README.md` - Project documentation
+## Color Palette
 
-## Interactive Terminal Commands
+### Dark Theme (Default)
+- Background: `hsl(240 10% 3.9%)`
+- Foreground: `hsl(0 0% 98%)`
+- Primary: `hsl(0 0% 98%)`
+- Muted: `hsl(240 3.7% 15.9%)`
+- Border: `hsl(240 3.7% 15.9%)`
 
-The website features an interactive terminal that supports the following commands:
+### Light Theme
+- Background: `hsl(0 0% 100%)`
+- Foreground: `hsl(240 10% 3.9%)`
+- Primary: `hsl(240 5.9% 10%)`
+- Muted: `hsl(240 4.8% 95.9%)`
+- Border: `hsl(240 5.9% 90%)`
 
-- `help` - Display available commands
-- `articles` - Display clickable list of all articles
-- `projects` - Display clickable list of GitHub projects
-- `about` - Show brief information about me
-- `social` - Display social media links
-- `clear` - Clear the terminal screen
-- `history` - Show command history
-- `theme [light/dark]` - Change site theme
-- `matrix` - Show a Matrix animation
-- `open [section]` - Navigate to a specific section (e.g., `open articles`)
+## Browser Support
 
-## Theme Toggle
-
-The site supports both light and dark themes:
-
-- Click the sun/moon icon in the navigation bar to toggle between themes
-- Your preference is saved in local storage and will persist between visits
-- The site respects your system preference if no manual selection is made
-- All colors smoothly transition when changing themes
+- Chrome (latest)
+- Firefox (latest)
+- Safari (latest)
+- Edge (latest)
 
 ## License
 
@@ -75,5 +93,6 @@ MIT License
 
 ## Contact
 
-- GitHub: [@ibrahimroshdy](https://github.com/ibrahimroshdy)
-- Medium: [@ibrahimroshdy](https://medium.com/@ibrahimroshdy) 
+- **GitHub**: [@ibrahimroshdy](https://github.com/ibrahimroshdy)
+- **LinkedIn**: [ibrahim-roshdy](https://linkedin.com/in/ibrahim-roshdy)
+- **Medium**: [@ibrahimroshdy](https://medium.com/@ibrahimroshdy)
